@@ -44,9 +44,21 @@ public class CollectionMap {
         public void learn() {
             ArrayDeque<String> arrayDeque = new ArrayDeque <>();
             arrayDeque.offer("A");
-            arrayDeque.offer("B");
             arrayDeque.offer("C");
-            System.out.println(arrayDeque.pop());
+            arrayDeque.offer("B");
+            System.out.println(arrayDeque.poll());
+            System.out.println(arrayDeque);
+        }
+    }
+
+    static class LearnPriorityQueue implements LearnCollectionMap {
+        @Override
+        public void learn() {
+            PriorityQueue<String> arrayDeque = new PriorityQueue <>();
+            arrayDeque.offer("A");
+            arrayDeque.offer("C");
+            arrayDeque.offer("B");
+            System.out.println(arrayDeque.poll());
             System.out.println(arrayDeque);
         }
     }
@@ -119,7 +131,7 @@ public class CollectionMap {
 
     public static void main(String[] args) {
         LearnCollectionMap learnCollectionMap;
-        learnCollectionMap = new LearnTreeSet();
+        learnCollectionMap = new LearnPriorityQueue();
         learnCollectionMap.learn();
     }
 }
