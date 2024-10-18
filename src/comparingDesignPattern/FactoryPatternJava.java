@@ -25,7 +25,7 @@ public class FactoryPatternJava {
     }
     static class FactoryA extends Factory{
         @Override
-        Product createProduct() {
+        ProductA createProduct() {
             return new ProductA();
         }
     }
@@ -37,7 +37,7 @@ public class FactoryPatternJava {
     }
     static class FactoryB extends Factory{
         @Override
-        Product createProduct() {
+        ProductB createProduct() {
             return new ProductB();
         }
     }
