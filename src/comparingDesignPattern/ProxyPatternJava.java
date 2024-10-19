@@ -16,11 +16,9 @@ public class ProxyPatternJava {
         );
         dynamicProxySubject.method();
     }
-
     interface Subject {
         void method();
     }
-
     static class RealSubject implements Subject {
         @Override
         public void method() {
@@ -47,7 +45,6 @@ public class ProxyPatternJava {
         public DynamicProxySubject(Object realSubject) {
             this.realSubject = realSubject;
         }
-
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             System.out.println("DynamicProxySubject: pre action");

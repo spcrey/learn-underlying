@@ -10,12 +10,12 @@ object ObserverPatternKt {
         observer.notifyObservables()
     }
     class Observer {
-        private val observeds = mutableListOf<Observable>()
+        private val observables = mutableListOf<Observable>()
         fun addObservable(observable: Observable) {
-            observeds.add(observable)
+            observables.add(observable)
         }
         fun notifyObservables() {
-            observeds.forEach { it.showMessage() }
+            observables.forEach { it.showMessage() }
         }
     }
     class Observable(val name: String, observer: Observer) {
@@ -23,7 +23,7 @@ object ObserverPatternKt {
             observer.addObservable(this)
         }
         fun showMessage() {
-            println("$name showMessage")
+            println("Observer($name).showMessage()")
         }
     }
 }

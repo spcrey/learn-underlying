@@ -8,18 +8,15 @@ object PrototypePatternKt {
         val cloner = cloneable.clone()
         cloneable.num = 2
         cloneable.list[3] = "E"
-        println(cloneable.toString())
-        println(cloner.toString())
+        println(cloneable)
+        println(cloner)
     }
-
     interface Cloneable {
         fun clone(): Cloneable
     }
-
     data class ConcreteCloneable(var num: Int, val list: MutableList<String>) : Cloneable {
         override fun clone(): ConcreteCloneable {
-            return ConcreteCloneable(num, list.toMutableList()) as ConcreteCloneable
+            return ConcreteCloneable(num, list.map { it }.toMutableList())
         }
     }
-
 }

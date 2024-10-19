@@ -1,7 +1,5 @@
 package comparingDesignPattern
 
-import comparingDesignPattern.SingletonPatternKt.HungrySingleton.Companion
-
 object SingletonPatternKt {
     @JvmStatic
     fun main(args: Array<String>) {
@@ -17,19 +15,16 @@ object SingletonPatternKt {
         println(s5)
         println(KotlinSingleton)
     }
-
     class HungrySingleton private constructor() {
         companion object {
             val instance by lazy {
                 HungrySingleton()
             }
         }
-
         override fun toString(): String {
             return "HungrySingleton()"
         }
     }
-
     class LazySingleton private constructor(private val name: String) {
         companion object {
             private var instance: LazySingleton? = null
@@ -45,7 +40,6 @@ object SingletonPatternKt {
             return "LazySingleton($name)"
         }
     }
-
     class DoubleCheckedLockingEagerSingleton private constructor(private val name: String) {
         companion object {
             @Volatile
@@ -65,7 +59,6 @@ object SingletonPatternKt {
             return "DoubleCheckedLockingEagerSingleton($name)"
         }
     }
-
     object KotlinSingleton {
         private const val NAME = "KotlinSingleton"
         override fun toString(): String {

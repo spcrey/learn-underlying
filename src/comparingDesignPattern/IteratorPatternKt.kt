@@ -14,26 +14,11 @@ object IteratorPatternKt {
         fun next(): T
         fun hasNext(): Boolean
     }
-    interface Container<T> {
-        fun add(element: T)
-        val size
-            get() = 0
-        fun getItem(index: Int): T
-        fun iterator(): Iterator<T>
-    }
-    class ConcreteContainer<T> : Container<T> {
-        val list = mutableListOf<T>()
-        override val size: Int
-            get() = list.size
-        override fun add(element: T) {
-            list.add(element)
-        }
-        override fun getItem(index: Int): T {
-            return list[index]
-        }
-        override fun iterator(): Iterator<T> {
-            return ConcreteIterator<T>(this)
-        }
+    abstract class Container<T> {
+        abstract fun add(element: T)
+        abstract val size: Int
+        abstract fun getItem(index: Int): T
+        abstract fun iterator(): Iterator<T>
     }
     class ConcreteIterator<T>(private val container: Container<T>): Iterator<T> {
         private var index = 0
@@ -42,6 +27,20 @@ object IteratorPatternKt {
         }
         override fun hasNext(): Boolean {
             return index < container.size
+        }
+    }
+    class ConcreteContainer<T>() : Container<T>() {
+        val list = mutableListOf<T>()
+        override fun add(element: T) {
+            list.add(element)
+        }
+        override val size: Int
+            get() = list.size
+        override fun getItem(index: Int): T {
+            return list[index]
+        }
+        override fun iterator(): Iterator<T> {
+            return ConcreteIterator(this)
         }
     }
 }

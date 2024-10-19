@@ -3,38 +3,37 @@ package comparingDesignPattern
 object FactoryPatternKt {
     @JvmStatic
     fun main(args: Array<String>) {
-        val factoryA = FactoryA()
-        val productA = factoryA.createProduct()
-        productA.method()
-        val factoryB = FactoryB()
-        val productB = factoryB.createProduct()
-        productB.method()
+        val alphaFactory: Factory = AlphaFactory()
+        val alphaProduct: Product = alphaFactory.createProduct()
+        alphaProduct.method()
+        val betaFactory = BetaFactory()
+        val betaProduct: Product = betaFactory.createProduct()
+        betaProduct.method()
     }
-
     abstract class Product {
         abstract fun method()
     }
     abstract class Factory {
-        abstract fun createProduct() : Product;
+        abstract fun createProduct() : Product
     }
-    class ProductA : Product() {
+    class AlphaProduct : Product() {
         override fun method() {
-            println("ProductA.method")
+            println("AlphaProduct.method()")
         }
     }
-    class FactoryA : Factory() {
-        override fun createProduct(): ProductA {
-            return ProductA()
+    class AlphaFactory : Factory() {
+        override fun createProduct(): AlphaProduct {
+            return AlphaProduct()
         }
     }
-    class ProductB : Product() {
+    class BetaProduct : Product() {
         override fun method() {
-            println("ProductB.method")
+            println("BetaProduct.method()")
         }
     }
-    class FactoryB : Factory() {
-        override fun createProduct(): ProductB {
-            return ProductB()
+    class BetaFactory : Factory() {
+        override fun createProduct(): BetaProduct {
+            return BetaProduct()
         }
     }
 }
