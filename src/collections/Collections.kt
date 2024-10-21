@@ -66,13 +66,17 @@ interface List<T> : Collection<T> {
 
 interface Stack<E> {
     fun push(element: E)
+
     fun pop(): E
+
     fun peek(): E
 }
 
 interface Queue<E> {
     fun add(element: E)
+
     fun pop(): E
+
     fun peek(): E
 }
 
@@ -122,6 +126,44 @@ class ArrayList<E> : List<E> {
 
     override fun iterator(): Iterator<E> {
         return ArrayListIterator(this)
+    }
+}
+
+interface Map<K, V> {
+    fun put(key: K, value: V)
+    operator fun get(key: K): V?
+    override fun toString(): String
+}
+
+class LruCache<K, V>(private val capacity: Int) : Map<K, V> {
+    private val linkedHashMap = LinkedHashMap<K, V>(capacity)
+
+    private var size = 0
+
+    override fun put(key: K, value: V) {
+        if (linkedHashMap.containsKey(key)) {
+            linkedHashMap.remove(key)
+            size -= 1
+        } else {
+            if (size == capacity) {
+                linkedHashMap.remove(linkedHashMap.keys.first())
+                size -= 1
+            }
+        }
+        linkedHashMap[key] = value
+        size += 1
+    }
+
+    override operator fun get(key: K): V? {
+        val value = linkedHashMap.remove(key)
+        value?.let {
+            linkedHashMap[key] = value
+            return value
+        } ?: return null
+    }
+
+    override fun toString(): String {
+        return linkedHashMap.toString()
     }
 }
 

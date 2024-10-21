@@ -1,9 +1,13 @@
-import java.math.BigInteger
-
 object MainKotlin {
     @JvmStatic
     fun main(args:Array<String>) {
-        val bigDecimal = BigInteger.valueOf(2)
-        println(bigDecimal)
+        val solution = Solution()
+        val n = readln().toInt()
+        val array = readln().split(" ").map{ it.toInt() }
+        println(array)
     }
+}
+
+class Solution {
+
 }
