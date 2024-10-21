@@ -140,9 +140,9 @@ private class ArrayListIterator<E>(private val elements: ArrayList<E>) : Iterato
     }
 }
 
-private class Node<E>(
+private class LinkedListNode<E>(
     var value: E? = null,
-    var next: Node<E>? = null,
+    var next: LinkedListNode<E>? = null,
 )
 
 class LinkedList<E> : List<E> {
@@ -160,9 +160,9 @@ class LinkedList<E> : List<E> {
     /**
      * Head node of element nodes
      * **/
-    private val head = Node<E>()
+    private val head = LinkedListNode<E>()
 
-    private fun getNode(index: Int): Node<E>? {
+    private fun getNode(index: Int): LinkedListNode<E>? {
         var node = head.next
         for (i in 0 until index) {
             if (node == null) {
@@ -200,7 +200,7 @@ class LinkedList<E> : List<E> {
         while (node.next != null) {
             node = node.next!!
         }
-        node.next = Node(element)
+        node.next = LinkedListNode(element)
     }
 
     override fun isEmpty(): Boolean {
@@ -229,7 +229,7 @@ class LinkedList<E> : List<E> {
     }
 }
 
-private class LinkedListIterator<E>(private var preNode: Node<E>) : Iterator<E> {
+private class LinkedListIterator<E>(private var preNode: LinkedListNode<E>) : Iterator<E> {
     override fun next(): E {
         preNode.next?.let {
             val value = it.value!!
@@ -243,43 +243,62 @@ private class LinkedListIterator<E>(private var preNode: Node<E>) : Iterator<E> 
     }
 }
 
-interface BinaryTree<E> {
-    var value: E?
-    var left: BinaryTree<E>?
-    var right: BinaryTree<E>?
-    val preOrderTraversalList: List<E>
-    val inOrderTraversalList: List<E>
-    val postOrderTraversalList: List<E>
-}
-
 interface BinaryTreeTraversalTransformer<E> {
-    fun transform(binaryTree: BinaryTree<E>)
+    fun transform(binaryTree: WithLeftRight<E>)
 }
 
 class PreOrderBinaryTreeTraversalTransformer<E> : BinaryTreeTraversalTransformer<E> {
-    override fun transform(binaryTree: BinaryTree<E>) {
+    override fun transform(binaryTree: WithLeftRight<E>) {
         TODO("Not yet implemented")
     }
 }
 
-class BinaryTreeImpl<E>(
-    override var value: E?,
-    override var left: BinaryTree<E>?,
-    override var right: BinaryTree<E>?,
-) : BinaryTree<E> {
-    override val preOrderTraversalList: List<E>
-        get() {
-            return ArrayList()
-        }
+interface TreeNode<E> {
+    var value: E
 
-    override val inOrderTraversalList: List<E>
-        get() {
-            return ArrayList()
-        }
-
-    override val postOrderTraversalList: List<E>
-        get() {
-            return ArrayList()
-        }
+    fun isLeafNode(): Boolean
 }
 
+interface Group<E> {
+    val children: ArrayList<E>
+
+    fun add(child: E) {
+        children.add(child)
+    }
+
+    operator fun get(index: Int): E {
+        return children[index]
+    }
+}
+
+class LeafTreeNode<E>(override var value: E) : TreeNode<E> {
+    override fun isLeafNode(): Boolean {
+        return true
+    }
+}
+
+class NonLeafTreeNode<E>(
+    override var value: E,
+) : TreeNode<E>, Group<TreeNode<E>> {
+
+    override val children: ArrayList<TreeNode<E>> = ArrayList()
+
+    override fun isLeafNode(): Boolean {
+        return false
+    }
+}
+
+interface Node<E> {
+    var value: E?
+}
+
+interface WithLeftRight<E> {
+    var left: WithLeftRight<E>?
+    var right: WithLeftRight<E>?
+}
+
+class BinaryTree<E> (
+    override var value: E?,
+    override var left: WithLeftRight<E>?,
+    override var right: WithLeftRight<E>?,
+) : WithLeftRight<E>, Node<E>
