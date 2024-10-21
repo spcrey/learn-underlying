@@ -11,7 +11,7 @@ object MainKotlin {
         val connection: Connection = DriverManager.getConnection("jdbc:sqlite:$dbFile")
         val statement: Statement = connection.createStatement()
         val resultSet: ResultSet = statement.executeQuery(
-            "SELECT * FROM Student;"
+            "SELECT * FROM Student"
         )
         while (resultSet.next()) {
             val name = resultSet.getString("name")
