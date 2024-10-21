@@ -1,11 +1,9 @@
-import collections.*
+import java.math.BigInteger
 
 object MainKotlin {
     @JvmStatic
     fun main(args:Array<String>) {
-        val treeNode = NonLeafTreeNode(1)
-        treeNode.add(LeafTreeNode(2))
-        treeNode.add(LeafTreeNode(3))
-        treeNode.add(LeafTreeNode(4))
+        val bigDecimal = BigInteger.valueOf(2)
+        println(bigDecimal)
     }
 }
