@@ -1,22 +1,6 @@
 package collections
 
 /**
- * Allows to sequentially access the elements.
- * @param T the type of element being iterated over.
- * The iterator is covariant in its element type.
- * */
-interface Iterator<T> {
-    /**
-     * Returns the next element in the iteration.
-     * **/
-    fun next(): T
-    /**
-     * Returns `true` if the iteration has more elements.
-     */
-    fun hasNext(): Boolean
-}
-
-/**
  * Classes that inherit from this interface can be represented as a sequence of elements that can be iterated over.
  * @param T the type of element being iterated over.
  * The iterator is covariant in its element type.
@@ -63,6 +47,8 @@ interface List<T> : Collection<T> {
 
     override fun toString(): String
 }
+
+interface MutableCollection<E>
 
 interface Stack<E> {
     fun push(element: E)
